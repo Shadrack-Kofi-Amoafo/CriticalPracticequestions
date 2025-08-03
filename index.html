@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Glassmorphism Quiz</title>
+    <title>Critical Thinking Quiz</title>
     <!-- Tailwind CSS for utility classes -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts for a modern look -->
@@ -68,7 +68,7 @@
             transition: all 0.2s ease-in-out;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        
+
         .btn:hover:not([disabled]) {
             background: rgba(255, 255, 255, 0.9);
             transform: translateY(-2px);
@@ -80,28 +80,29 @@
             opacity: 0.8;
             pointer-events: none;
         }
-        
+
         /* Styling for the correct answer button */
         .btn.correct {
             background: rgba(76, 175, 80, 0.5);
             border-color: rgba(76, 175, 80, 0.8);
             box-shadow: 0 0 15px rgba(76, 175, 80, 0.7);
         }
-        
+
         /* Styling for incorrect answers */
         .btn.incorrect {
             background: rgba(244, 67, 54, 0.5);
             border-color: rgba(244, 67, 54, 0.8);
             box-shadow: 0 0 15px rgba(244, 67, 54, 0.7);
         }
-        
+
         .controls {
             display: flex;
-            justify-content: flex-end;
-            margin-top: 1rem; /* Added margin to fix spacing */
+            justify-content: space-between; /* Changed to space-between for left/right alignment */
+            margin-top: 1rem;
+            gap: 0.5rem;
         }
 
-        #next-btn {
+        #next-btn, #explain-btn, #back-btn, #restart-btn {
             background: linear-gradient(45deg, #00c6ff, #0072ff);
             color: #fff;
             padding: 0.75rem 1.5rem;
@@ -113,9 +114,18 @@
             box-shadow: 0 4px 15px rgba(0, 114, 255, 0.4);
         }
 
-        #next-btn:hover {
+        #explain-btn {
+            background: linear-gradient(45deg, #ffc107, #ff9800);
+            box-shadow: 0 4px 15px rgba(255, 152, 0, 0.4);
+        }
+
+        #back-btn, #restart-btn {
+            background: linear-gradient(45deg, #607d8b, #455a64);
+            box-shadow: 0 4px 15px rgba(69, 90, 100, 0.4);
+        }
+
+        #next-btn:hover, #explain-btn:hover, #back-btn:hover, #restart-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 114, 255, 0.6);
         }
 
         #next-btn:disabled {
@@ -124,19 +134,23 @@
             box-shadow: none;
         }
 
-        .score-box {
+        .score-box, .explanation-box {
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: 700;
         }
-        
+
+        .explanation-box {
+            text-align: left;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+        }
+
         .hidden {
             display: none;
         }
     </style>
 </head>
 <body>
-
     <div class="glass-container p-6 sm:p-8">
         <!-- Main Quiz Content -->
         <div id="quiz-content">
@@ -150,22 +164,34 @@
                 <!-- Buttons will be inserted here by JavaScript -->
             </div>
             
-            <!-- Controls (Next Button) -->
+            <!-- Controls (Explain and Next Buttons) -->
             <div class="controls">
+                <!-- The order of these buttons determines their display order -->
+                <button id="explain-btn" class="hidden">Explain</button>
                 <button id="next-btn" class="hidden">Next</button>
+            </div>
+        </div>
+
+        <!-- Explanation Display -->
+        <div id="explanation-container" class="hidden">
+            <div class="explanation-box">
+                <p id="explanation-text" class="mb-4 text-lg"></p>
+                <div class="controls justify-start">
+                    <button id="back-btn">Back to Question</button>
+                </div>
             </div>
         </div>
 
         <!-- Score/Results Display -->
         <div id="results-container" class="hidden">
             <div class="score-box">
-                <p id="score-text"></p>
-                <button id="restart-btn" class="mt-6 px-6 py-2 bg-indigo-500 hover:bg-indigo-600 text-white font-bold rounded-full shadow-lg transition-all">Restart Quiz</button>
+                <p id="score-text" class="text-2xl font-bold mb-4"></p>
+                <button id="restart-btn" class="mt-6 px-6 py-2">Restart Quiz</button>
             </div>
         </div>
     </div>
 
-    <!-- External JavaScript file -->
+    <!-- Links to the separate JavaScript file -->
     <script src="script.js"></script>
 </body>
 </html>
